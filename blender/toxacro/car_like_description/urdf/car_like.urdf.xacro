@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<robot name="car_like" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Auto-generated from Blender (unit-fix: bbox->meters) -->
+  <xacro:arg name="pkg" default="car_like_description"/>
+  <xacro:arg name="mu1" default="2.5"/>
+  <xacro:arg name="mu2" default="2.5"/>
+  <xacro:property name="pkg" value="$(arg pkg)"/>
+  <xacro:property name="mu1" value="$(arg mu1)"/>
+  <xacro:property name="mu2" value="$(arg mu2)"/>
+
+  <xacro:property name="mesh_dir" value="package://${pkg}/urdf/meshes"/>
+
+  <xacro:arg name="ackermann_enabled" default="true"/>
+  <xacro:arg name="ackermann_namespace" default=""/>
+  <xacro:arg name="ackermann_cmd_vel_topic" default="cmd_vel"/>
+  <xacro:arg name="ackermann_odom_topic" default="odom"/>
+  <xacro:arg name="ackermann_distance_topic" default="distance"/>
+  <xacro:arg name="ackermann_odometry_frame" default="odom"/>
+  <xacro:arg name="ackermann_robot_base_frame" default="base_link"/>
+
+  <!-- ========== LINKS ========== -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/base_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.175621 0.225891 0.108579"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="10.768651"/>
+      <inertia ixx="0.05637" ixy="0" ixz="0" iyy="0.038258" iyz="0" izz="0.073469"/>
+    </inertial>
+  </link>
+
+  <link name="front_left_steer_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/front_left_steer_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.033318 0.033356 0.003"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.008335"/>
+      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000002"/>
+    </inertial>
+  </link>
+
+  <link name="front_right_steer_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/front_right_steer_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.033318 0.033356 0.003"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.008335"/>
+      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000002"/>
+    </inertial>
+  </link>
+
+  <link name="front_left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/front_left_wheel.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.570796 0"/>
+      <geometry>
+        <cylinder radius="0.0315" length="0.03165"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.246654"/>
+      <inertia ixx="0.000122" ixy="0" ixz="0" iyy="0.000082" iyz="0" izz="0.000082"/>
+    </inertial>
+  </link>
+
+  <link name="front_right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/front_right_wheel.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.570796 0"/>
+      <geometry>
+        <cylinder radius="0.0315" length="0.0315"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.245483"/>
+      <inertia ixx="0.000122" ixy="0" ixz="0" iyy="0.000081" iyz="0" izz="0.000081"/>
+    </inertial>
+  </link>
+
+  <link name="rear_left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/rear_left_wheel.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.570796 0"/>
+      <geometry>
+        <cylinder radius="0.0315" length="0.0315"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.245483"/>
+      <inertia ixx="0.000122" ixy="0" ixz="0" iyy="0.000081" iyz="0" izz="0.000081"/>
+    </inertial>
+  </link>
+
+  <link name="rear_right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/rear_right_wheel.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.570796 0"/>
+      <geometry>
+        <cylinder radius="0.031855" length="0.031571"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.251613"/>
+      <inertia ixx="0.000128" ixy="0" ixz="0" iyy="0.000085" iyz="0" izz="0.000085"/>
+    </inertial>
+  </link>
+
+  <!-- ========== JOINTS ========== -->
+  <joint name="front_left_steer_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="front_left_steer_link"/>
+    <origin xyz="-0.065239 0.066357 -0.017635" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.7" upper="0.7" effort="50" velocity="2.0"/>
+    <dynamics damping="1.0" friction="0.2"/>
+  </joint>
+  <joint name="front_right_steer_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="front_right_steer_link"/>
+    <origin xyz="0.072524 0.066228 -0.017635" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.7" upper="0.7" effort="50" velocity="2.0"/>
+    <dynamics damping="1.0" friction="0.2"/>
+  </joint>
+
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="front_left_steer_link"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <dynamics damping="0.1" friction="0.0"/>
+  </joint>
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="front_right_steer_link"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <dynamics damping="0.1" friction="0.0"/>
+  </joint>
+
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_left_wheel"/>
+    <origin xyz="-0.065282 -0.097208 -0.017635" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <dynamics damping="0.1" friction="0.0"/>
+  </joint>
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_right_wheel"/>
+    <origin xyz="0.072523 -0.097281 -0.017635" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <dynamics damping="0.1" friction="0.0"/>
+  </joint>
+
+
+  <!-- ========== GAZEBO (friction) ========== -->
+  <gazebo reference="base_link">
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+  </gazebo>
+  <gazebo reference="front_left_steer_link">
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+  </gazebo>
+  <gazebo reference="front_right_steer_link">
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+  </gazebo>
+  <gazebo reference="front_left_wheel">
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+  </gazebo>
+  <gazebo reference="front_right_wheel">
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+  </gazebo>
+  <gazebo reference="rear_left_wheel">
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+  </gazebo>
+  <gazebo reference="rear_right_wheel">
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+  </gazebo>
+
+</robot>

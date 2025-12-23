@@ -1,0 +1,267 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="car_like">
+    <static>false</static>
+    <link name="base_link">
+      <pose>0 0 0 0 0 0</pose>
+      <visual name="base_link_vis">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://car_like/meshes/base_link.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="base_link_col">
+        <pose>0.0034895427525043488 -0.015733987092971802 0.012140290811657906 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.17562101036310196 0.22589102387428284 0.10857900604605675</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.1</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>0.0034895427525043488 -0.015733987092971802 0.012140290811657906 0 0 0</pose>
+        <mass>10.768651</mass>
+        <inertia>
+          <ixx>0.056370</ixx>
+          <iyy>0.038258</iyy>
+          <izz>0.073469</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+    </link>
+    <link name="wheel2">
+      <pose>-0.06593014299869537 0.06624943763017654 -0.017635000869631767 0.0 0.0 0.0</pose>
+      <visual name="wheel2_vis">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://car_like/meshes/wheel2.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="wheel2_col">
+        <pose>0.000691086232875171 0.00010715294393226493 -6.675720531923446e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03165030322070206 0.06300000299233943 0.06300000489968816</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.1</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>0.000691086232875171 0.00010715294393226493 -6.675720531923446e-09 0 0 0</pose>
+        <mass>0.314050</mass>
+        <inertia>
+          <ixx>0.000208</ixx>
+          <iyy>0.000130</iyy>
+          <izz>0.000130</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name="wheel2_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>wheel2</child>
+    </joint>
+    <link name="wheel3">
+      <pose>-0.06593000143766403 -0.09720829874277115 -0.017635000869631767 0.0 0.0 0.0</pose>
+      <visual name="wheel3_vis">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://car_like/meshes/wheel3.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="wheel3_col">
+        <pose>0.0006482181102334117 0.0 -2.861022752043141e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03150000164378408 0.06300000299233943 0.06300000138021966</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.1</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>0.0006482181102334117 0.0 -2.861022752043141e-09 0 0 0</pose>
+        <mass>0.312559</mass>
+        <inertia>
+          <ixx>0.000207</ixx>
+          <iyy>0.000129</iyy>
+          <izz>0.000129</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name="wheel3_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>wheel3</child>
+    </joint>
+    <link name="wheel4">
+      <pose>0.07317300140857697 -0.09728100150823593 -0.017635000869631767 0.0 0.0 0.0</pose>
+      <visual name="wheel4_vis">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://car_like/meshes/wheel4.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="wheel4_col">
+        <pose>-0.0006496691040328018 0.0 2.893265960146607e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03157100099515142 0.06300000299233943 0.06370999612480444</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.1</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>-0.0006496691040328018 0.0 2.893265960146607e-09 0 0 0</pose>
+        <mass>0.316794</mass>
+        <inertia>
+          <ixx>0.000212</ixx>
+          <iyy>0.000133</iyy>
+          <izz>0.000131</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name="wheel4_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>wheel4</child>
+    </joint>
+    <link name="wheel1">
+      <pose>0.07317258417606354 0.06612101197242737 -0.01763458363711834 0.0 0.0 0.0</pose>
+      <visual name="wheel1_vis">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://car_like/meshes/wheel1.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="wheel1_col">
+        <pose>-0.0006482080966537795 0.00010726738485566933 2.8610230851100482e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03150000259745833 0.06300000299233943 0.06300000489968816</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.1</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>-0.0006482080966537795 0.00010726738485566933 2.8610230851100482e-09 0 0 0</pose>
+        <mass>0.312559</mass>
+        <inertia>
+          <ixx>0.000207</ixx>
+          <iyy>0.000129</iyy>
+          <izz>0.000129</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name="wheel1_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>wheel1</child>
+    </joint>
+  </model>
+</sdf>

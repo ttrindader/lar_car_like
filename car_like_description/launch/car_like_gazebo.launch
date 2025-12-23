@@ -1,0 +1,59 @@
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="verbose" default="false"/>
+  <arg name="ns" default="car_like"/>
+
+  <!-- parâmetros do conversor v+delta -->
+  <arg name="wheelbase" default="0.16"/>
+  <arg name="track" default="0.13"/>
+  <arg name="wheel_radius" default="0.0315"/>
+  <arg name="max_steer" default="0.7"/>
+  <arg name="max_speed" default="2.0"/>
+
+  <param name="use_sim_time" value="$(arg use_sim_time)"/>
+
+  <param name="robot_description"
+         command="$(find xacro)/xacro --inorder '$(find car_like_description)/urdf/car_like.urdf.xacro' ns:=$(arg ns)"/>
+
+  <!-- controllers -->
+  <rosparam file="$(find car_like_description)/config/controllers.yaml"
+            command="load" ns="$(arg ns)"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="verbose" value="$(arg verbose)"/>
+  </include>
+
+  <!-- tudo no namespace do robô -->
+  <group ns="$(arg ns)">
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher"
+          name="robot_state_publisher" output="screen"/>
+
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_car_like" output="screen"
+          args="-urdf -param /robot_description -model $(arg ns) -x 0 -y 0 -z 0.06"/>
+
+    <node pkg="controller_manager" type="spawner" name="controller_spawner" output="screen"
+          args="joint_state_controller
+                front_left_steer_controller
+                front_right_steer_controller
+                rear_left_wheel_controller
+                rear_right_wheel_controller"/>
+
+    <!-- NODE: v (m/s) + delta (rad) -> controllers -->
+    <node pkg="car_like_description" type="car_like_v_angle_controller.py"
+          name="v_angle_controller" output="screen">
+      <param name="ns" value="$(arg ns)"/>
+      <param name="wheelbase" value="$(arg wheelbase)"/>
+      <param name="track" value="$(arg track)"/>
+      <param name="wheel_radius" value="$(arg wheel_radius)"/>
+      <param name="max_steer" value="$(arg max_steer)"/>
+      <param name="max_speed" value="$(arg max_speed)"/>
+    </node>
+
+  </group>
+</launch>
+

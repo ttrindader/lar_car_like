@@ -1,0 +1,381 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="car_like">
+    <static>false</static>
+    <pose>0 0 0 0 0 0</pose>
+    <link name="base_link">
+      <pose>0 0 0 0 0 0</pose>
+      <velocity_decay>
+        <linear>0.30000001192092896</linear>
+        <angular>0.6000000238418579</angular>
+      </velocity_decay>
+      <visual name="base_link_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>file:///home/ttrindader/Downloads/LucasPInheiro/tosdfnew/meshes/base_link.dae</uri>
+          </mesh>
+        </geometry>
+        <cast_shadows>true</cast_shadows>
+      </visual>
+      <collision name="base_link_col">
+        <pose>0.0034895427525043488 -0.015733987092971802 0.012140290811657906 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.17562101036310196 0.22589102387428284 0.10857900604605675</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>5.0</mu>
+              <mu2>5.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+            <torsional>
+              <coefficient>1.0</coefficient>
+              <use_patch_radius>true</use_patch_radius>
+              <patch_radius>0.019999999552965164</patch_radius>
+              <ode>
+                <slip>0.0</slip>
+              </ode>
+            </torsional>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.2</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>1e6</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>0.0034895427525043488 -0.015733987092971802 0.012140290811657906 0 0 0</pose>
+        <mass>0.387671448</mass>
+        <inertia>
+          <ixx>0.002029336</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001377272</iyy>
+          <iyz>0</iyz>
+          <izz>0.002644872</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <link name="wheel2">
+      <pose>-0.06593014299869537 0.06624943763017654 -0.017635000869631767 0.0 -0.0 0.0</pose>
+      <visual name="wheel2_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>file:///home/ttrindader/Downloads/LucasPInheiro/tosdfnew/meshes/wheel2.dae</uri>
+          </mesh>
+        </geometry>
+        <cast_shadows>true</cast_shadows>
+      </visual>
+      <collision name="wheel2_col">
+        <pose>0.000691086232875171 0.00010715294393226493 -6.675720531923446e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03165030322070206 0.06300000299233943 0.06300000489968816</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>5.0</mu>
+              <mu2>5.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+            <torsional>
+              <coefficient>1.0</coefficient>
+              <use_patch_radius>true</use_patch_radius>
+              <patch_radius>0.019999999552965164</patch_radius>
+              <ode>
+                <slip>0.0</slip>
+              </ode>
+            </torsional>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.2</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>1e6</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>0.000691086232875171 0.00010715294393226493 -6.675720531923446e-09 0 0 0</pose>
+        <mass>0.011305806</mass>
+        <inertia>
+          <ixx>0.000007479</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000004683</iyy>
+          <iyz>0</iyz>
+          <izz>0.000004683</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <link name="wheel3">
+      <pose>-0.06593000143766403 -0.09720829874277115 -0.017635000869631767 0.0 -0.0 0.0</pose>
+      <visual name="wheel3_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>file:///home/ttrindader/Downloads/LucasPInheiro/tosdfnew/meshes/wheel3.dae</uri>
+          </mesh>
+        </geometry>
+        <cast_shadows>true</cast_shadows>
+      </visual>
+      <collision name="wheel3_col">
+        <pose>0.0006482181102334117 0.0 -2.861022752043141e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03150000164378408 0.06300000299233943 0.06300000138021966</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>5.0</mu>
+              <mu2>5.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+            <torsional>
+              <coefficient>1.0</coefficient>
+              <use_patch_radius>true</use_patch_radius>
+              <patch_radius>0.019999999552965164</patch_radius>
+              <ode>
+                <slip>0.0</slip>
+              </ode>
+            </torsional>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.2</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>1e6</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>0.0006482181102334117 0.0 -2.861022752043141e-09 0 0 0</pose>
+        <mass>0.011252116</mass>
+        <inertia>
+          <ixx>0.000007443</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000004652</iyy>
+          <iyz>0</iyz>
+          <izz>0.000004652</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <link name="wheel4">
+      <pose>0.07317300140857697 -0.09728100150823593 -0.017635000869631767 0.0 -0.0 0.0</pose>
+      <visual name="wheel4_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>file:///home/ttrindader/Downloads/LucasPInheiro/tosdfnew/meshes/wheel4.dae</uri>
+          </mesh>
+        </geometry>
+        <cast_shadows>true</cast_shadows>
+      </visual>
+      <collision name="wheel4_col">
+        <pose>-0.0006496691040328018 0.0 2.893265960146607e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03157100099515142 0.06300000299233943 0.06370999612480444</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>5.0</mu>
+              <mu2>5.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+            <torsional>
+              <coefficient>1.0</coefficient>
+              <use_patch_radius>true</use_patch_radius>
+              <patch_radius>0.019999999552965164</patch_radius>
+              <ode>
+                <slip>0.0</slip>
+              </ode>
+            </torsional>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.2</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>1e6</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>-0.0006496691040328018 0.0 2.893265960146607e-09 0 0 0</pose>
+        <mass>0.011404572</mass>
+        <inertia>
+          <ixx>0.000007630</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000004805</iyy>
+          <iyz>0</iyz>
+          <izz>0.000004719</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <link name="wheel1">
+      <pose>0.07317258417606354 0.06612101197242737 -0.01763458363711834 0.0 -0.0 0.0</pose>
+      <visual name="wheel1_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>file:///home/ttrindader/Downloads/LucasPInheiro/tosdfnew/meshes/wheel1.dae</uri>
+          </mesh>
+        </geometry>
+        <cast_shadows>true</cast_shadows>
+      </visual>
+      <collision name="wheel1_col">
+        <pose>-0.0006482080966537795 0.00010726738485566933 2.8610230851100482e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03150000259745833 0.06300000299233943 0.06300000489968816</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>5.0</mu>
+              <mu2>5.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+            <torsional>
+              <coefficient>1.0</coefficient>
+              <use_patch_radius>true</use_patch_radius>
+              <patch_radius>0.019999999552965164</patch_radius>
+              <ode>
+                <slip>0.0</slip>
+              </ode>
+            </torsional>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>50.0</kd>
+              <max_vel>0.2</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>1e6</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <inertial>
+        <pose>-0.0006482080966537795 0.00010726738485566933 2.8610230851100482e-09 0 0 0</pose>
+        <mass>0.011252117</mass>
+        <inertia>
+          <ixx>0.000007443</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000004652</iyy>
+          <iyz>0</iyz>
+          <izz>0.000004652</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name="wheel2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e16</lower>
+          <upper>1e16</upper>
+        </limit>
+        <dynamics>
+          <damping>0.02</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name="wheel3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel3</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e16</lower>
+          <upper>1e16</upper>
+        </limit>
+        <dynamics>
+          <damping>0.02</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name="wheel4_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel4</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e16</lower>
+          <upper>1e16</upper>
+        </limit>
+        <dynamics>
+          <damping>0.02</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+    <joint name="wheel1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e16</lower>
+          <upper>1e16</upper>
+        </limit>
+        <dynamics>
+          <damping>0.02</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+    </joint>
+  </model>
+</sdf>

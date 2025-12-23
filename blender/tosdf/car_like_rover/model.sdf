@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <model name="car_like_rover">
+    <static>false</static>
+    <allow_auto_disable>true</allow_auto_disable>
+
+
+    <link name="base_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>3.489538 -15.733987 12.140261 0.000000 0.000000 0.000000</pose>
+        <mass>15.000000</mass>
+        <inertia>
+          <ixx>0.078520</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.053290</iyy><iyz>0</iyz><izz>0.102337</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="base_visual">
+        <geometry>
+          <mesh><uri>model://car_like_rover/meshes/base_link.dae</uri></mesh>
+        </geometry>
+
+        <material>
+          <ambient>1.000000 1.000000 1.000000 1</ambient>
+          <diffuse>1.000000 1.000000 1.000000 1</diffuse>
+          <emissive>0.060000 0.060000 0.060000 1</emissive>
+        </material>
+      </visual>
+
+
+      <collision name="base_box_col">
+        <pose>3.489538 -15.733987 12.140261 0.000000 0.000000 0.000000</pose>
+        <geometry><box><size>0.175621 0.225891 0.108579</size></box></geometry>
+        <surface>
+          <friction><ode mu="0.9" mu2="0.9"/></friction>
+          <contact><ode kp="300000.0" kd="2.0"/></contact>
+        </surface>
+      </collision>
+    </link>
+
+
+    <link name="wheel1">
+      <pose relative_to="base_link">72.524269 66.228279 -17.634537 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>58931807.127458</mass>
+        <inertia>
+          <ixx>26386882387.026886</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>17591242142.729679</iyy><iyz>0</iyz><izz>17591242142.729679</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="wheel1_visual">
+        <geometry>
+          <mesh><uri>model://car_like_rover/meshes/wheel1.dae</uri></mesh>
+        </geometry>
+
+        <material>
+          <ambient>1.000000 1.000000 1.000000 1</ambient>
+          <diffuse>1.000000 1.000000 1.000000 1</diffuse>
+          <emissive>0.060000 0.060000 0.060000 1</emissive>
+        </material>
+      </visual>
+
+      <collision name="wheel1_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry><cylinder><radius>29.925000</radius><length>29.924957</length></cylinder></geometry>
+        <surface>
+          <friction><ode mu="0.9" mu2="0.9"/></friction>
+          <contact><ode kp="300000.0" kd="2.0"/></contact>
+        </surface>
+      </collision>
+    </link>
+
+    <link name="wheel2">
+      <pose relative_to="base_link">-65.238960 66.356590 -17.634962 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>59213016.221075</mass>
+        <inertia>
+          <ixx>26512804181.813148</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>17717456585.952396</iyy><iyz>0</iyz><izz>17717456585.952396</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="wheel2_visual">
+        <geometry>
+          <mesh><uri>model://car_like_rover/meshes/wheel2.dae</uri></mesh>
+        </geometry>
+
+        <material>
+          <ambient>1.000000 1.000000 1.000000 1</ambient>
+          <diffuse>1.000000 1.000000 1.000000 1</diffuse>
+          <emissive>0.060000 0.060000 0.060000 1</emissive>
+        </material>
+      </visual>
+
+      <collision name="wheel2_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry><cylinder><radius>29.925005</radius><length>30.067741</length></cylinder></geometry>
+        <surface>
+          <friction><ode mu="0.9" mu2="0.9"/></friction>
+          <contact><ode kp="300000.0" kd="2.0"/></contact>
+        </surface>
+      </collision>
+    </link>
+
+    <link name="wheel3">
+      <pose relative_to="base_link">-65.281685 -97.208298 -17.634962 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>58931807.127458</mass>
+        <inertia>
+          <ixx>26386882387.026886</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>17591242142.729679</iyy><iyz>0</iyz><izz>17591242142.729679</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="wheel3_visual">
+        <geometry>
+          <mesh><uri>model://car_like_rover/meshes/wheel3.dae</uri></mesh>
+        </geometry>
+
+        <material>
+          <ambient>1.000000 1.000000 1.000000 1</ambient>
+          <diffuse>1.000000 1.000000 1.000000 1</diffuse>
+          <emissive>0.060000 0.060000 0.060000 1</emissive>
+        </material>
+      </visual>
+
+      <collision name="wheel3_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry><cylinder><radius>29.925000</radius><length>29.924957</length></cylinder></geometry>
+        <surface>
+          <friction><ode mu="0.9" mu2="0.9"/></friction>
+          <contact><ode kp="300000.0" kd="2.0"/></contact>
+        </surface>
+      </collision>
+    </link>
+
+    <link name="wheel4">
+      <pose relative_to="base_link">72.523224 -97.280998 -17.634954 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>60403123.213646</mass>
+        <inertia>
+          <ixx>27658564225.886913</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>18357221953.068550</iyy><iyz>0</iyz><izz>18357221953.068550</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="wheel4_visual">
+        <geometry>
+          <mesh><uri>model://car_like_rover/meshes/wheel4.dae</uri></mesh>
+        </geometry>
+
+        <material>
+          <ambient>1.000000 1.000000 1.000000 1</ambient>
+          <diffuse>1.000000 1.000000 1.000000 1</diffuse>
+          <emissive>0.060000 0.060000 0.060000 1</emissive>
+        </material>
+      </visual>
+
+      <collision name="wheel4_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry><cylinder><radius>30.262173</radius><length>29.992402</length></cylinder></geometry>
+        <surface>
+          <friction><ode mu="0.9" mu2="0.9"/></friction>
+          <contact><ode kp="300000.0" kd="2.0"/></contact>
+        </surface>
+      </collision>
+    </link>
+
+
+    <joint name="wheel1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel1</child>
+      <!-- ÂNCORA NO CENTRO DA RODA (NO FRAME DO base_link) -->
+      <pose relative_to="base_link">72.524269 66.228279 -17.634537 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics><damping>0.2</damping></dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper> 1e+16</upper>
+          <effort>50.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+
+    <joint name="wheel2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel2</child>
+      <!-- ÂNCORA NO CENTRO DA RODA (NO FRAME DO base_link) -->
+      <pose relative_to="base_link">-65.238960 66.356590 -17.634962 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics><damping>0.2</damping></dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper> 1e+16</upper>
+          <effort>50.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+
+    <joint name="wheel3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel3</child>
+      <!-- ÂNCORA NO CENTRO DA RODA (NO FRAME DO base_link) -->
+      <pose relative_to="base_link">-65.281685 -97.208298 -17.634962 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics><damping>0.2</damping></dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper> 1e+16</upper>
+          <effort>50.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+
+    <joint name="wheel4_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel4</child>
+      <!-- ÂNCORA NO CENTRO DA RODA (NO FRAME DO base_link) -->
+      <pose relative_to="base_link">72.523224 -97.280998 -17.634954 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics><damping>0.2</damping></dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper> 1e+16</upper>
+          <effort>50.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+
+  </model>
+</sdf>

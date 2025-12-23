@@ -1,0 +1,409 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="rover_sdf">
+    <static>false</static>
+    <allow_auto_disable>true</allow_auto_disable>
+    <link name="base_link">
+      <pose>0.000000 0.000000 0.100000 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>20.000000</mass>
+        <inertia>
+          <ixx>2.954502</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>2.005160</iyy>
+          <iyz>0</iyz>
+          <izz>3.850658</izz>
+        </inertia>
+      </inertial>
+      <visual name="base_visual">
+        <geometry>
+          <mesh>
+            <uri>model://rover_sdf/meshes/base_link.dae</uri>
+            <scale>0.005312 0.005312 0.005312</scale>
+          </mesh>
+        </geometry>
+        <material>
+          
+          
+          <ambient>0.011426 0.011426 0.011426 1</ambient>
+          
+          
+          <diffuse>0.011426 0.011426 0.011426 1.000000</diffuse>
+          
+          
+          <emissive>0.000686 0.000686 0.000686 1</emissive>
+          
+          
+          <script>
+            
+            
+            <uri>model://rover_sdf/materials/scripts</uri>
+            
+            
+            <uri>model://rover_sdf/materials/textures</uri>
+            
+            
+            <name>rover_sdf/flat_030303ff</name>
+            
+          
+          </script>
+          
+        
+        </material>
+      </visual>
+      <collision name="base_box_col">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.932949 1.200000 0.576802</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode mu="1.0" mu2="1.0"/>
+          </friction>
+          <contact>
+            <ode kp="200000.0" kd="2.0"/>
+          </contact>
+        </surface>
+      </collision>
+    </link>
+    <link name="wheel1">
+      <pose>0.385270 0.351824 0.006320 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>3.000000</mass>
+        <inertia>
+          <ixx>0.008506</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.010571</iyy>
+          <iyz>0</iyz>
+          <izz>0.010571</izz>
+        </inertia>
+      </inertial>
+      <visual name="wheel1_visual">
+        <geometry>
+          <mesh>
+            <uri>model://rover_sdf/meshes/wheel1.dae</uri>
+            <scale>0.005312 0.005312 0.005312</scale>
+          </mesh>
+        </geometry>
+        <material>
+          
+          
+          <ambient>0.024098 0.024098 0.024098 1</ambient>
+          
+          
+          <diffuse>0.024098 0.024098 0.024098 1.000000</diffuse>
+          
+          
+          <emissive>0.001446 0.001446 0.001446 1</emissive>
+          
+          
+          <script>
+            
+            
+            <uri>model://rover_sdf/materials/scripts</uri>
+            
+            
+            <uri>model://rover_sdf/materials/textures</uri>
+            
+            
+            <name>rover_sdf/flat_060606ff</name>
+            
+          
+          </script>
+          
+        
+        </material>
+      </visual>
+      <collision name="wheel1_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.075302</radius>
+            <length>0.158970</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode mu="1.0" mu2="1.0"/>
+          </friction>
+          <contact>
+            <ode kp="200000.0" kd="2.0"/>
+          </contact>
+        </surface>
+      </collision>
+    </link>
+    <joint name="wheel1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel1</child>
+      <pose>0.385270 0.351824 0.006320 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>0.3</damping>
+        </dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>80.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <link name="wheel2">
+      <pose>-0.346569 0.352506 0.006318 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>3.000000</mass>
+        <inertia>
+          <ixx>0.008506</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.010631</iyy>
+          <iyz>0</iyz>
+          <izz>0.010631</izz>
+        </inertia>
+      </inertial>
+      <visual name="wheel2_visual">
+        <geometry>
+          <mesh>
+            <uri>model://rover_sdf/meshes/wheel2.dae</uri>
+            <scale>0.005312 0.005312 0.005312</scale>
+          </mesh>
+        </geometry>
+        <material>
+          
+          
+          <ambient>0.024098 0.024098 0.024098 1</ambient>
+          
+          
+          <diffuse>0.024098 0.024098 0.024098 1.000000</diffuse>
+          
+          
+          <emissive>0.001446 0.001446 0.001446 1</emissive>
+          
+          
+          <script>
+            
+            
+            <uri>model://rover_sdf/materials/scripts</uri>
+            
+            
+            <uri>model://rover_sdf/materials/textures</uri>
+            
+            
+            <name>rover_sdf/flat_060606ff</name>
+            
+          
+          </script>
+          
+        
+        </material>
+      </visual>
+      <collision name="wheel2_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.075302</radius>
+            <length>0.159729</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode mu="1.0" mu2="1.0"/>
+          </friction>
+          <contact>
+            <ode kp="200000.0" kd="2.0"/>
+          </contact>
+        </surface>
+      </collision>
+    </link>
+    <joint name="wheel2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel2</child>
+      <pose>-0.346569 0.352506 0.006318 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>0.3</damping>
+        </dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>80.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <link name="wheel3">
+      <pose>-0.346796 -0.516399 0.006318 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>3.000000</mass>
+        <inertia>
+          <ixx>0.008506</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.010571</iyy>
+          <iyz>0</iyz>
+          <izz>0.010571</izz>
+        </inertia>
+      </inertial>
+      <visual name="wheel3_visual">
+        <geometry>
+          <mesh>
+            <uri>model://rover_sdf/meshes/wheel3.dae</uri>
+            <scale>0.005312 0.005312 0.005312</scale>
+          </mesh>
+        </geometry>
+        <material>
+          
+          
+          <ambient>0.024098 0.024098 0.024098 1</ambient>
+          
+          
+          <diffuse>0.024098 0.024098 0.024098 1.000000</diffuse>
+          
+          
+          <emissive>0.001446 0.001446 0.001446 1</emissive>
+          
+          
+          <script>
+            
+            
+            <uri>model://rover_sdf/materials/scripts</uri>
+            
+            
+            <uri>model://rover_sdf/materials/textures</uri>
+            
+            
+            <name>rover_sdf/flat_060606ff</name>
+            
+          
+          </script>
+          
+        
+        </material>
+      </visual>
+      <collision name="wheel3_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.075302</radius>
+            <length>0.158970</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode mu="1.0" mu2="1.0"/>
+          </friction>
+          <contact>
+            <ode kp="200000.0" kd="2.0"/>
+          </contact>
+        </surface>
+      </collision>
+    </link>
+    <joint name="wheel3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel3</child>
+      <pose>-0.346796 -0.516399 0.006318 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>0.3</damping>
+        </dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>80.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <link name="wheel4">
+      <pose>0.385265 -0.516786 0.006318 0.000000 0.000000 0.000000</pose>
+      <inertial>
+        <mass>3.000000</mass>
+        <inertia>
+          <ixx>0.008698</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.010696</iyy>
+          <iyz>0</iyz>
+          <izz>0.010696</izz>
+        </inertia>
+      </inertial>
+      <visual name="wheel4_visual">
+        <geometry>
+          <mesh>
+            <uri>model://rover_sdf/meshes/wheel4.dae</uri>
+            <scale>0.005312 0.005312 0.005312</scale>
+          </mesh>
+        </geometry>
+        <material>
+          
+          
+          <ambient>0.001260 0.114458 0.994828 1</ambient>
+          
+          
+          <diffuse>0.001260 0.114458 0.994828 1.000000</diffuse>
+          
+          
+          <emissive>0.000076 0.006868 0.059690 1</emissive>
+          
+          
+          <script>
+            
+            
+            <uri>model://rover_sdf/materials/scripts</uri>
+            
+            
+            <uri>model://rover_sdf/materials/textures</uri>
+            
+            
+            <name>rover_sdf/flat_001dfeff</name>
+            
+          
+          </script>
+          
+        
+        </material>
+      </visual>
+      <collision name="wheel4_col">
+        <pose>0.000000 0.000000 0.000000 0.000000 1.570796 0.000000</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.076150</radius>
+            <length>0.159329</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode mu="1.0" mu2="1.0"/>
+          </friction>
+          <contact>
+            <ode kp="200000.0" kd="2.0"/>
+          </contact>
+        </surface>
+      </collision>
+    </link>
+    <joint name="wheel4_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>wheel4</child>
+      <pose>0.385265 -0.516786 0.006318 0.000000 0.000000 0.000000</pose>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <dynamics>
+          <damping>0.3</damping>
+        </dynamics>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>80.0</effort>
+          <velocity>120.0</velocity>
+        </limit>
+      </axis>
+    </joint>
+  </model>
+</sdf>

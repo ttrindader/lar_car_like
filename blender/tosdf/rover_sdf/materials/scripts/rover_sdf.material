@@ -1,0 +1,56 @@
+material rover_sdf/flat_030303ff
+{
+  technique
+  {
+    pass
+    {
+      lighting on
+      ambient 0.011426 0.011426 0.011426
+      diffuse 0.011426 0.011426 0.011426 1.000000
+      specular 0.050000 0.050000 0.050000 1 15
+      emissive 0.000686 0.000686 0.000686
+      texture_unit
+      {
+        texture flat_030303ff.png
+      }
+    }
+  }
+}
+
+material rover_sdf/flat_060606ff
+{
+  technique
+  {
+    pass
+    {
+      lighting on
+      ambient 0.024098 0.024098 0.024098
+      diffuse 0.024098 0.024098 0.024098 1.000000
+      specular 0.050000 0.050000 0.050000 1 15
+      emissive 0.001446 0.001446 0.001446
+      texture_unit
+      {
+        texture flat_060606ff.png
+      }
+    }
+  }
+}
+
+material rover_sdf/flat_001dfeff
+{
+  technique
+  {
+    pass
+    {
+      lighting on
+      ambient 0.001260 0.114458 0.994828
+      diffuse 0.001260 0.114458 0.994828 1.000000
+      specular 0.050000 0.050000 0.050000 1 15
+      emissive 0.000076 0.006868 0.059690
+      texture_unit
+      {
+        texture flat_001dfeff.png
+      }
+    }
+  }
+}

@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<robot name="car_like" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="pkg" default="car_like_description"/>
+  <xacro:arg name="ns"  default="car_like"/>
+
+  <!-- ================= CONTATO ================= -->
+  <!-- Direção "frente" do seu modelo é +Y (pelos origins dos eixos) -->
+  <xacro:arg name="mu_long" default="1.2"/>   <!-- atrito na direção do movimento (fdir1) -->
+  <xacro:arg name="mu_lat"  default="3.0"/>   <!-- atrito lateral (evita derrapar ao esterçar) -->
+
+  <!-- slip: deixe slip2 (lateral) BEM pequeno pra não "patinar de lado" -->
+  <xacro:arg name="wheel_slip1" default="0.01"/>  <!-- longitudinal -->
+  <xacro:arg name="wheel_slip2" default="0.001"/> <!-- lateral -->
+
+  <xacro:arg name="body_mu1" default="0.2"/>
+  <xacro:arg name="body_mu2" default="0.2"/>
+
+  <!-- parâmetros de contato ODE (reduz jitter) -->
+  <xacro:arg name="contact_kp" default="50000"/>
+  <xacro:arg name="contact_kd" default="1.0"/>
+  <xacro:arg name="contact_min_depth" default="0.001"/>
+  <xacro:arg name="contact_max_vel" default="0.1"/>
+
+  <!-- ================= COLISÃO DO CHASSI ================= -->
+  <xacro:arg name="base_col_x" default="0.08"/>
+  <xacro:arg name="base_col_y" default="0.16"/>
+  <xacro:arg name="base_col_z" default="0.08"/>
+  <xacro:arg name="base_col_center_z" default="0.035"/>
+
+  <!-- ================= RODAS ================= -->
+  <xacro:arg name="wheel_radius" default="0.0315"/>
+  <xacro:arg name="wheel_width"  default="0.0315"/>
+
+  <!-- sinais: +command => pra frente (ajuste se necessário) -->
+  <xacro:arg name="rear_left_sign"  default="-1"/>
+  <xacro:arg name="rear_right_sign" default="-1"/>
+
+  <xacro:property name="mesh_dir" value="package://$(arg pkg)/urdf/meshes"/>
+
+  <!-- ================= LINKS ================= -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${mesh_dir}/base_link.dae"/></geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 $(arg base_col_center_z)" rpy="0 0 0"/>
+      <geometry>
+        <box size="$(arg base_col_x) $(arg base_col_y) $(arg base_col_z)"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 -0.01" rpy="0 0 0"/>
+      <mass value="0.35"/>
+      <inertia ixx="0.00093" ixy="0" ixz="0"
+               iyy="0.00037" iyz="0"
+               izz="0.00093"/>
+    </inertial>
+  </link>
+
+  <!-- steer links: sem colisão -->
+  <link name="front_left_steer_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${mesh_dir}/front_left_steer_link.dae"/></geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.008"/>
+      <inertia ixx="0.000003" ixy="0" ixz="0"
+               iyy="0.000003" iyz="0"
+               izz="0.000003"/>
+    </inertial>
+  </link>
+
+  <link name="front_right_steer_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="${mesh_dir}/front_right_steer_link.dae"/></geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.008"/>
+      <inertia ixx="0.000003" ixy="0" ixz="0"
+               iyy="0.000003" iyz="0"
+               izz="0.000003"/>
+    </inertial>
+  </link>
+
+  <!-- macro roda (colisão cilindro alinhada no eixo X) -->
+  <xacro:macro name="wheel_link" params="name mesh">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><mesh filename="${mesh_dir}/${mesh}"/></geometry>
+      </visual>
+
+      <collision>
+        <!-- URDF cylinder default eixo Z; rotate pra ficar no eixo X -->
+        <origin xyz="0 0 0" rpy="0 1.570796 0"/>
+        <geometry><cylinder radius="$(arg wheel_radius)" length="$(arg wheel_width)"/></geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.03"/>
+        <inertia ixx="0.000015" ixy="0" ixz="0"
+                 iyy="0.000010" iyz="0"
+                 izz="0.000010"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <xacro:wheel_link name="front_left_wheel"  mesh="front_left_wheel.dae"/>
+  <xacro:wheel_link name="front_right_wheel" mesh="front_right_wheel.dae"/>
+  <xacro:wheel_link name="rear_left_wheel"   mesh="rear_left_wheel.dae"/>
+  <xacro:wheel_link name="rear_right_wheel"  mesh="rear_right_wheel.dae"/>
+
+  <!-- ================= JOINTS ================= -->
+  <joint name="front_left_steer_joint" type="revolute">
+    <parent link="base_link"/>
+    <child  link="front_left_steer_link"/>
+    <origin xyz="-0.065239 0.066357 -0.017635" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <!-- mais torque pra realmente esterçar sob carga -->
+    <limit lower="-0.7" upper="0.7" effort="15.0" velocity="4.0"/>
+    <dynamics damping="1.0" friction="0.0"/>
+  </joint>
+
+  <joint name="front_right_steer_joint" type="revolute">
+    <parent link="base_link"/>
+    <child  link="front_right_steer_link"/>
+    <origin xyz="0.072524 0.066228 -0.017635" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.7" upper="0.7" effort="15.0" velocity="4.0"/>
+    <dynamics damping="1.0" friction="0.0"/>
+  </joint>
+
+  <!-- rodas dianteiras livres (MAS com damping/friction pra não "pegar vida") -->
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="front_left_steer_link"/>
+    <child  link="front_left_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1.0" velocity="80.0"/>
+    <dynamics damping="0.10" friction="0.05"/>
+  </joint>
+
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="front_right_steer_link"/>
+    <child  link="front_right_wheel"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1.0" velocity="80.0"/>
+    <dynamics damping="0.10" friction="0.05"/>
+  </joint>
+
+  <!-- drive traseiro (EFFORT) -->
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child  link="rear_left_wheel"/>
+    <origin xyz="-0.065282 -0.097208 -0.017635" rpy="0 0 0"/>
+    <axis xyz="$(arg rear_left_sign) 0 0"/>
+    <!-- mais torque p/ não ficar lento -->
+    <limit effort="5.0" velocity="200.0"/>
+    <dynamics damping="0.12" friction="0.06"/>
+  </joint>
+
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child  link="rear_right_wheel"/>
+    <origin xyz="0.072523 -0.097281 -0.017635" rpy="0 0 0"/>
+    <axis xyz="$(arg rear_right_sign) 0 0"/>
+    <limit effort="5.0" velocity="200.0"/>
+    <dynamics damping="0.12" friction="0.06"/>
+  </joint>
+
+  <!-- ================= GAZEBO: atrito / slip / damping ================= -->
+  <gazebo reference="base_link">
+    <mu1>$(arg body_mu1)</mu1>
+    <mu2>$(arg body_mu2)</mu2>
+    <linearDamping>0.05</linearDamping>
+    <angularDamping>0.06</angularDamping>
+  </gazebo>
+
+  <!-- Função: definir direção de atrito principal = "frente" (+Y) -->
+  <xacro:macro name="wheel_contact" params="ref">
+    <gazebo reference="${ref}">
+      <!-- anisotrópico (ODE): mu1 ao longo de fdir1, mu2 perpendicular -->
+      <fdir1>0 1 0</fdir1>
+      <mu1>$(arg mu_long)</mu1>
+      <mu2>$(arg mu_lat)</mu2>
+
+      <slip1>$(arg wheel_slip1)</slip1>
+      <slip2>$(arg wheel_slip2)</slip2>
+
+      <kp>$(arg contact_kp)</kp>
+      <kd>$(arg contact_kd)</kd>
+      <minDepth>$(arg contact_min_depth)</minDepth>
+      <maxVel>$(arg contact_max_vel)</maxVel>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:wheel_contact ref="front_left_wheel"/>
+  <xacro:wheel_contact ref="front_right_wheel"/>
+  <xacro:wheel_contact ref="rear_left_wheel"/>
+  <xacro:wheel_contact ref="rear_right_wheel"/>
+
+  <!-- ================= TRANSMISSIONS (EFFORT) ================= -->
+  <transmission name="tr_front_left_steer">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_left_steer_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="act_front_left_steer">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tr_front_right_steer">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="front_right_steer_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="act_front_right_steer">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tr_rear_left_wheel">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_left_wheel_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="act_rear_left_wheel">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tr_rear_right_wheel">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rear_right_wheel_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="act_rear_right_wheel">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- ================= PLUGIN ros_control ================= -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>$(arg ns)</robotNamespace>
+      <robotParam>/robot_description</robotParam>
+      <!-- mais responsivo e menos "aos pulos" -->
+      <controlPeriod>0.001</controlPeriod>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <!-- estabilidade ODE -->
+  <gazebo reference="front_left_steer_joint"><implicitSpringDamper>1</implicitSpringDamper></gazebo>
+  <gazebo reference="front_right_steer_joint"><implicitSpringDamper>1</implicitSpringDamper></gazebo>
+  <gazebo reference="front_left_wheel_joint"><implicitSpringDamper>1</implicitSpringDamper></gazebo>
+  <gazebo reference="front_right_wheel_joint"><implicitSpringDamper>1</implicitSpringDamper></gazebo>
+  <gazebo reference="rear_left_wheel_joint"><implicitSpringDamper>1</implicitSpringDamper></gazebo>
+  <gazebo reference="rear_right_wheel_joint"><implicitSpringDamper>1</implicitSpringDamper></gazebo>
+
+</robot>
+
