@@ -5,7 +5,6 @@
   <arg name="verbose" default="false"/>
   <arg name="ns" default="car_like"/>
 
-  <!-- parâmetros do conversor v+delta -->
   <arg name="wheelbase" default="0.16"/>
   <arg name="track" default="0.13"/>
   <arg name="wheel_radius" default="0.0315"/>
@@ -14,10 +13,10 @@
 
   <param name="use_sim_time" value="$(arg use_sim_time)"/>
 
+  <!-- robot_description global pro gazebo -->
   <param name="robot_description"
          command="$(find xacro)/xacro --inorder '$(find car_like_description)/urdf/car_like.urdf.xacro' ns:=$(arg ns)"/>
 
-  <!-- controllers -->
   <rosparam file="$(find car_like_description)/config/controllers.yaml"
             command="load" ns="$(arg ns)"/>
 
@@ -27,7 +26,6 @@
     <arg name="verbose" value="$(arg verbose)"/>
   </include>
 
-  <!-- tudo no namespace do robô -->
   <group ns="$(arg ns)">
 
     <node pkg="robot_state_publisher" type="robot_state_publisher"
@@ -37,21 +35,43 @@
           args="-urdf -param /robot_description -model $(arg ns) -x 0 -y 0 -z 0.06"/>
 
     <node pkg="controller_manager" type="spawner" name="controller_spawner" output="screen"
-          args="joint_state_controller
-                front_left_steer_controller
-                front_right_steer_controller
-                rear_left_wheel_controller
-                rear_right_wheel_controller"/>
+      args="--namespace /$(arg ns)
+            --timeout 60
+            joint_state_controller
+            front_left_steer_controller
+            front_right_steer_controller
+            rear_left_wheel_controller
+            rear_right_wheel_controller"/>
 
-    <!-- NODE: v (m/s) + delta (rad) -> controllers -->
+
     <node pkg="car_like_description" type="car_like_v_angle_controller.py"
           name="v_angle_controller" output="screen">
-      <param name="ns" value="$(arg ns)"/>
       <param name="wheelbase" value="$(arg wheelbase)"/>
       <param name="track" value="$(arg track)"/>
       <param name="wheel_radius" value="$(arg wheel_radius)"/>
       <param name="max_steer" value="$(arg max_steer)"/>
       <param name="max_speed" value="$(arg max_speed)"/>
+    </node>
+
+    <!-- ODOM: publica /car_like/odom (sem TF) -->
+    <node pkg="car_like_description" type="car_like_odometry_node.py"
+          name="car_like_odometry" output="screen">
+      <param name="wheel_radius" value="$(arg wheel_radius)"/>
+      <param name="wheelbase" value="$(arg wheelbase)"/>
+
+      <!-- ✅ SEM TF (EKF publica) -->
+      <param name="publish_tf" value="false"/>
+
+      <param name="odom_topic" value="odom"/>
+
+      <param name="rear_left_sign" value="-1.0"/>
+      <param name="rear_right_sign" value="-1.0"/>
+    </node>
+
+    <!-- EKF: assina "odom" (relativo) e publica odom_filtered + TF -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf" output="screen" clear_params="true">
+      <rosparam command="load" file="$(find car_like_description)/config/ekf.yaml"/>
+      <remap from="odometry/filtered" to="odom_filtered"/>
     </node>
 
   </group>
