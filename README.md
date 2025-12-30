@@ -139,6 +139,15 @@ rostopic pub -r 20 /car_like/ackermann_cmd ackermann_msgs/AckermannDriveStamped 
   - `/car_like/rear_left_wheel_controller/command` *(std_msgs/Float64)*
   - `/car_like/rear_right_wheel_controller/command` *(std_msgs/Float64)*
   - `/car_like/ackermann_cmd` *(ackermann_msgs/AckermannDriveStamped, optional)*
+  
+  
+**Odometry (raw + filtered)**:
+  - `/car_like/odom` *(nav_msgs/Odometry — raw wheel/steering-based odometry published by `car_like_odometry_node.py`)*
+  - `/car_like/odom_filtered` *(nav_msgs/Odometry — EKF output from `robot_localization`)*
+
+- **TF frames (when `ekf.yaml` has `publish_tf: true`)**:
+  - `odom -> base_link` *(published by the EKF; set `publish_tf: false` in the raw odom node to avoid TF duplication)*
+
 
 - Controller state (debug):
   - `/car_like/<controller_name>/state`
